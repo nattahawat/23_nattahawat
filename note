@@ -1,0 +1,29 @@
+docker -v
+docker ps ดู docker
+docker ps --all
+docker run hello-world
+docker run busybox ping google.com
+docker stop [container id]
+docker pull busybox
+docker create busybox ping google.com
+docker start [container id]
+
+docker system prune  **ลบ container 
+
+
+docker run nginx
+docker exec ls
+docker exec -it [container id] sh
+docker exec -it [container id] bash
+
+docker rm [container id]
+docker run -p 80:80 nginxe
+docker run -p 8800:80 nginxe
+
+docker run -d -p 8800:80 nginxe 
+
+docker inflow
+docker images
+docker system df
+docker images rm [NAME]
+
