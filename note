@@ -25,5 +25,5 @@ docker run -d -p 8800:80 nginxe
 docker inflow
 docker images
 docker system df
-docker images rm [NAME]
+docker images rm [NAME]  ลบ
 

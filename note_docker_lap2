@@ -1,0 +1,61 @@
+docker pull wordpress
+docker pull mysql:5.7
+docker pull phpmyadmin/phpmyadmin
+
+**Create network
+docker network create [wordpress]
+docker network ls ดู
+    docker network rm ชื่อ ลบ
+
+docker run --name mysql --network wordpress -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=wordpress_db -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -d mysql:5.7
+
+docker run --name pma --network wordpress -p 8888:80 -e PMA_ARBITRARY=1 -d phpmyadmin/phpmyadmin
+docker run -d --name wordpress --network wordpress -p 888:80 -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress -e WORDPRESS_DB_NAME=wordpress_db wordpress
+
+wordpress รหัส=wordpress117
+
+
+**Join network
+docker network connect wordpress mysql
+docker network connect wordpress pma
+
+
+**show network
+docker network inspect wordpress
+
+
+แบบ 1
+docker exec -it pma sh
+apt-get update
+apt-get install vim
+    var/www/html
+
+vi a.text กด i พิมพ์ข้อมูล กด esc ออก พิมพ์ :wq enter save
+docker install 
+
+แบบ 2
+docker volume ls
+docker volume create wp_volume
+docker volume create mysql_volume
+docker volume rm wp_volume mysql_volume
+
+docker container inspect wordpress
+ที่อยู่ volume /var/www/html
+
+docker container inspect mysql
+ที่อยู่ volume /var/lib/html
+
+
+
+สร้างเอง
+docker volume create wp_volume
+docker volume create mysql_volume
+docker network create wordpress02
+docker network ls
+docker volume ls
+
+docker run --name mysql02 --network wordpress02 -v mysql_volume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=wordpress02_db -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -d mysql:5.7
+docker run -d --name wordpress02 --network wordpress02 -v wp_volume:/var/www/html -e WORDPRESS_DB_HOST=mysql02 -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress -e WORDPRESS_DB_NAME=wordpress02_db wordpress -p 889:80 wordpress
+docker run --name pma02 --network wordpress02 -p 8889:80 -e PMA_ARBITRARY=1 -d phpmyadmin/phpmyadmin
+ 
+docker run -d --name wordpress02 --network wordpress02 -v wp_volume:/var/www/html -p 889:80 -e WORDPRESS_DB_HOST=mysql02 -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress -e WORDPRESS_DB_NAME=wordpress02_db wordpress
