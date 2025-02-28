@@ -10,3 +10,8 @@ npm i multer (อัปโหลดภาพลงเครื่องจาก
 ----------2---------
 cd .\server (ชื่อfloder)\
 npx nodemon .\index.js
+
+
+----------3--------
+การใช้ axios
+<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
